@@ -8,3 +8,6 @@
 
 Keep the UUIDs in `ghost-ui-src/manifest.json` when rebuilding so updates replace
 the installed pack instead of adding a second copy.
+
+- `GhostClient_PvP.mcpack`: low fire, no pumpkin blur and a clean Ghost crosshair.
+- `tools/build_ghost_pvp.py`: regenerates the PvP pack from vanilla textures.

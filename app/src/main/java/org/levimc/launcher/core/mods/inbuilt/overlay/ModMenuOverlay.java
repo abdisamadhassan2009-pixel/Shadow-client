@@ -1368,7 +1368,13 @@ public class ModMenuOverlay {
         }
 
         private void sort(List<UnifiedMod> mods) {
-            mods.sort((left, right) -> left.getName().compareToIgnoreCase(right.getName()));
+            // Ghost Client: Ghost PvP mods first, then everything else by name.
+            mods.sort((left, right) -> {
+                boolean l = org.levimc.launcher.core.mods.inbuilt.shadow.ShadowMods.isShadowMod(left.getId());
+                boolean r = org.levimc.launcher.core.mods.inbuilt.shadow.ShadowMods.isShadowMod(right.getId());
+                if (l != r) return l ? -1 : 1;
+                return left.getName().compareToIgnoreCase(right.getName());
+            });
         }
     }
 }
