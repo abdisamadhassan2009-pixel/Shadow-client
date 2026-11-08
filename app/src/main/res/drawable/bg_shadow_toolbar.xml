@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Shadow Client: dark glass toolbar used by the HUD editor -->
+<!-- Ghost Client: dark glass toolbar used by the HUD editor -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <solid android:color="#E6111319" />

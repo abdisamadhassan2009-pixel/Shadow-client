@@ -40,7 +40,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="14dp"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_shadow_badge" />
+                    android:src="@drawable/ic_ghost_logo" />
 
                 <TextView
                     android:id="@+id/nav_modules"

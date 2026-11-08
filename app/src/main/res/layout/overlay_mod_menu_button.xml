@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_mod_menu_fab"
-        android:src="@drawable/ic_shadow_logo"
+        android:src="@drawable/ic_ghost_logo"
         android:contentDescription="@string/app_name"
-        android:padding="7dp"
+        android:padding="5dp"
         android:scaleType="fitCenter" />
 
 </FrameLayout>

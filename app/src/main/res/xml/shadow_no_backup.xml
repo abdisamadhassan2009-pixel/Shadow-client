@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Shadow Client: never back up or transfer app data (saved Microsoft sign-in lives in files/xal). -->
+<!-- Ghost Client: never back up or transfer app data (saved Microsoft sign-in lives in files/xal). -->
 <data-extraction-rules>
     <cloud-backup>
         <exclude domain="root" path="." />

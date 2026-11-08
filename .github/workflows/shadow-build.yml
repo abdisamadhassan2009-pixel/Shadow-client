@@ -1,4 +1,4 @@
-name: Build Shadow Client
+name: Build Ghost Client
 
 on:
   push:
@@ -57,10 +57,10 @@ jobs:
           fi
           ./gradlew assembleDebug
 
-      - name: Upload Shadow Client APK
+      - name: Upload Ghost Client APK
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: ShadowClient-apk
+          name: GhostClient-apk
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
 
@@ -68,16 +68,16 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           APK=$(ls app/build/outputs/apk/debug/*.apk | head -n 1)
-          cp "$APK" ShadowClient.apk
+          cp "$APK" GhostClient.apk
 
       - name: Publish APK to Releases
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: Shadow Client build ${{ github.run_number }}
+          name: Ghost Client build ${{ github.run_number }}
           body: |
-            Download **ShadowClient.apk** below and open it on your Android phone to install.
+            Download **GhostClient.apk** below and open it on your Android phone to install.
             Requires Minecraft Bedrock bought from Google Play.
-          files: ShadowClient.apk
+          files: GhostClient.apk
           make_latest: true

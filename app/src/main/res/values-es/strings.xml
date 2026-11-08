@@ -8,7 +8,7 @@
 
 <resources>
     <!-- Common -->
-    <string name="app_name">Shadow Client</string>
+    <string name="app_name">Ghost Client</string>
     <string name="minecraft">Minecraft</string>
     <string name="launch">Jugar</string>
     <string name="beta_badge">Beta</string>

@@ -8,7 +8,7 @@
 
 <resources>
     <!-- Common -->
-    <string name="app_name">Shadow Client</string>
+    <string name="app_name">Ghost Client</string>
     <string name="minecraft">Minecraft</string>
     <string name="launch">Launch</string>
     <string name="beta_badge">Beta</string>
@@ -174,8 +174,8 @@
 
     <string name="error_no_browser">No browser available</string>
     <!-- License & Security -->
-    <string name="eula_title">Shadow Client License Agreement</string>
-    <string name="eula_message"><b>Welcome to Shadow Client</b>\n\nBy using this software you agree to:\n\n• This is an <b>unofficial</b> Minecraft launcher\n• You must own a <b>licensed</b> copy of Minecraft\n• Any form of piracy or cheating is prohibited\n• Mods/resource packs are used at your own risk\n• Not affiliated with Mojang/Microsoft\n\nContinued use constitutes agreement</string>
+    <string name="eula_title">Ghost Client License Agreement</string>
+    <string name="eula_message"><b>Welcome to Ghost Client</b>\n\nBy using this software you agree to:\n\n• This is an <b>unofficial</b> Minecraft launcher\n• You must own a <b>licensed</b> copy of Minecraft\n• Any form of piracy or cheating is prohibited\n• Mods/resource packs are used at your own risk\n• Not affiliated with Mojang/Microsoft\n\nContinued use constitutes agreement</string>
     <string name="eula_agree">Accept</string>
     <string name="eula_exit">Decline</string>
 
@@ -435,8 +435,8 @@
     <string name="external_mods_open_link">Open Link</string>
     <string name="external_mods_external_dialog_title">External Download</string>
     <string name="external_mods_ad_dialog_title">Ad-Supported Download</string>
-    <string name="external_mods_external_dialog_message">%1$s uses a download page outside Shadow Client.\n\n1. Tap Open Link and download the .levipack or .so file.\n2. Return to Shadow Client and open Mods.\n3. Tap Scan.\n4. Tap Add next to the mod you want to import.\n\nScan checks only the main Downloads folder. Move the file there if your browser saved it somewhere else.</string>
-    <string name="external_mods_ad_dialog_message">%1$s uses an ad-supported download page chosen by its developer. Shadow Client does not control that page or its ads.\n\n1. Tap Open Link and download the .levipack or .so file.\n2. Return to Shadow Client and open Mods.\n3. Tap Scan.\n4. Tap Add next to the mod you want to import.\n\nScan checks only the main Downloads folder. Only download the mod file; do not install unrelated apps or allow notifications.</string>
+    <string name="external_mods_external_dialog_message">%1$s uses a download page outside Ghost Client.\n\n1. Tap Open Link and download the .levipack or .so file.\n2. Return to Ghost Client and open Mods.\n3. Tap Scan.\n4. Tap Add next to the mod you want to import.\n\nScan checks only the main Downloads folder. Move the file there if your browser saved it somewhere else.</string>
+    <string name="external_mods_ad_dialog_message">%1$s uses an ad-supported download page chosen by its developer. Ghost Client does not control that page or its ads.\n\n1. Tap Open Link and download the .levipack or .so file.\n2. Return to Ghost Client and open Mods.\n3. Tap Scan.\n4. Tap Add next to the mod you want to import.\n\nScan checks only the main Downloads folder. Only download the mod file; do not install unrelated apps or allow notifications.</string>
     <string name="external_mods_by_author">by %1$s</string>
     <string name="external_mods_version">Mod %1$s</string>
     <string name="external_mods_minecraft_versions">Minecraft %1$s</string>
@@ -549,9 +549,9 @@
     <string name="ms_device_code_login_desc">Open a private browser session with the device code already filled in.</string>
     <string name="ms_webview_login">Open embedded sign-in</string>
     <string name="ms_webview_option_title">Embedded WebView</string>
-    <string name="ms_webview_login_desc">Sign in without leaving Shadow Client. Use this when the browser flow is unavailable.</string>
+    <string name="ms_webview_login_desc">Sign in without leaving Ghost Client. Use this when the browser flow is unavailable.</string>
     <string name="ms_device_code_title">Sign in with Device Code</string>
-    <string name="ms_device_code_instructions">Open Microsoft’s device sign-in page, enter this code, then approve access. Shadow Client will finish automatically.</string>
+    <string name="ms_device_code_instructions">Open Microsoft’s device sign-in page, enter this code, then approve access. Ghost Client will finish automatically.</string>
     <string name="ms_device_code_label">Microsoft device code</string>
     <string name="ms_device_code_requesting">Requesting a secure code…</string>
     <string name="ms_device_code_waiting_code">--------</string>
@@ -565,7 +565,7 @@
     <string name="ms_device_code_copied">Code copied</string>
     <string name="ms_device_code_open_browser">Open Microsoft sign-in</string>
     <string name="ms_device_code_step_title">Complete sign-in in your browser</string>
-    <string name="ms_device_code_browser_note">Shadow Client opens your default browser in a private session, fills the code automatically, and requests a fresh Microsoft sign-in.</string>
+    <string name="ms_device_code_browser_note">Ghost Client opens your default browser in a private session, fills the code automatically, and requests a fresh Microsoft sign-in.</string>
     <string name="ms_choose_other_method">Other method</string>
     <string name="ms_no_browser">No browser is available on this device.</string>
     <string name="ms_default_browser_no_private_mode">Your default browser does not support private sign-in. Update it or use WebView login.</string>
@@ -578,14 +578,14 @@
     <string name="ms_active_badge">Active</string>
     <string name="ms_account_subtitle_format">User ID: %1$s • Updated: %2$s</string>
     <string name="xbox_avatar">Xbox avatar</string>
-    <string name="launcher_managed_mc_login">Sign in to Minecraft with Shadow Client</string>
+    <string name="launcher_managed_mc_login">Sign in to Minecraft with Ghost Client</string>
     <string name="dialog_title_login_required">Sign-in required</string>
     <string name="dialog_message_login_required">Launcher-managed login is enabled, but no account is signed in. Go to Accounts to sign in.</string>
     <string name="go_to_accounts">Accounts</string>
     <string name="disable_launcher_login_and_continue">Close</string>
 
     <string name="ms_feature_disabled_title">Feature Disabled</string>
-    <string name="ms_feature_disabled_desc">Please enable \'Sign in to Minecraft with Shadow Client\' in Settings to manage Microsoft accounts.</string>
+    <string name="ms_feature_disabled_desc">Please enable \'Sign in to Minecraft with Ghost Client\' in Settings to manage Microsoft accounts.</string>
     <string name="ms_activated">Activated</string>
 
     <!-- Popup labels -->
@@ -871,7 +871,7 @@
     <string name="vanilla_prefix">Vanilla %s</string>
 
     <string name="about_page_title">About</string>
-    <string name="about_subtitle">Shadow Client — based on LeviLauncher by LiteLDev (Apache 2.0)</string>
+    <string name="about_subtitle">Ghost Client — based on LeviLauncher by LiteLDev (Apache 2.0)</string>
     <string name="about_authors_title">👥 Authors &amp; Maintainers</string>
     <string name="about_author_name">DreamGuXiang</string>
     <string name="about_author_badge">Author</string>
@@ -1040,7 +1040,7 @@
     <string name="mod_config_hotbar_slot_opacity">Hotbar slot %1$d opacity</string>
     <!-- Changelog & News -->
     <string name="changelog_title">What’s new</string>
-    <string name="changelog_version">Shadow Client %1$s</string>
+    <string name="changelog_version">Ghost Client %1$s</string>
     <string name="changelog_continue">Continue</string>
     <string name="news_title">Launcher news</string>
     <string name="news_subtitle">Updates, announcements, and important notices from the LeviLauncher team.</string>
@@ -1101,7 +1101,7 @@
     <string name="bg_media_blur_unavailable">Android 12+</string>
     <string name="screenshot_saved">Screenshot saved</string>
     <string name="backup_select_downloads">Select the Downloads folder to save backups in Downloads/LeviLauncher/Backups.</string>
-    <!-- Shadow Client PvP HUD mods -->
+    <!-- Ghost Client PvP HUD mods -->
     <string name="shadow_mod_keystrokes">Keystrokes</string>
     <string name="shadow_mod_keystrokes_desc">Shows your taps per second, or W A S D, mouse clicks, Space and Shift when you play with a keyboard</string>
     <string name="shadow_mod_clock">Clock</string>

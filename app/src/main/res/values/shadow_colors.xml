@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Shadow Client palette -->
-    <color name="shadow_icon_back">#111319</color>
+    <!-- Ghost Client palette -->
+    <color name="shadow_icon_back">#07080B</color>
     <color name="shadow_accent">#6E8BFF</color>
     <color name="shadow_enabled">#3DDC97</color>
     <color name="shadow_panel">#111319</color>
