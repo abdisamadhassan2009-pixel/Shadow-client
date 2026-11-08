@@ -11,6 +11,7 @@ package org.levimc.launcher.util;
 public final class ShadowBranding {
     public static final String UPDATE_OWNER = "";
     public static final String UPDATE_REPO = "shadow-client";
+    public static final String DISCORD_URL = "https://discord.gg/shadowpvp";
 
     private ShadowBranding() {
     }

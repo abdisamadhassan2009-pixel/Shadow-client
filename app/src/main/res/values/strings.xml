@@ -1112,6 +1112,8 @@
 
     <string name="ghost_build_label">Ghost Client %1$s · Bedrock Edition</string>
 
+    <string name="ghost_discord">Join the ShadowPVP Discord</string>
+
     <!-- Ghost Client PvP HUD mods -->
     <string name="shadow_mod_keystrokes">Keystrokes</string>
     <string name="shadow_mod_keystrokes_desc">Shows your taps per second, or W A S D, mouse clicks, Space and Shift when you play with a keyboard</string>

@@ -112,7 +112,7 @@ public final class InbuiltModuleProvider {
                                      int nameRes, int descRes, String groupName) {
         boolean active = overlayManager != null
                 ? overlayManager.isModActive(id)
-                : manager.resolveInbuiltModEnabled(id, false);
+                : manager.resolveInbuiltModEnabled(id, ShadowMods.defaultEnabled(id));
         boolean customConfig = ModIds.MORE_BUTTONS.equals(id);
         UnifiedMod result = new UnifiedMod(
                 id,

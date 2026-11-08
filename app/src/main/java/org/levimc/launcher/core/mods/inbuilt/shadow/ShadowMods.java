@@ -36,6 +36,13 @@ public final class ShadowMods {
     private ShadowMods() {
     }
 
+    /** Mods that start switched on for a fresh install (players can still turn them off). */
+    public static boolean defaultEnabled(String modId) {
+        return KEYSTROKES.equals(modId)
+                || "cps_display".equals(modId)
+                || "fps_display".equals(modId);
+    }
+
     public static boolean isShadowMod(String modId) {
         for (String id : ALL) if (id.equals(modId)) return true;
         return false;

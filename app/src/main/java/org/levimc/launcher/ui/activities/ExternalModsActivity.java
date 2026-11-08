@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Locale;
 
 public final class ExternalModsActivity extends BaseActivity {
-    private static final String COMMUNITY_DISCORD_URL = "https://discord.gg/rMgdpTFFVg";
+    private static final String COMMUNITY_DISCORD_URL = org.levimc.launcher.util.ShadowBranding.DISCORD_URL;
     private final List<ModCatalog.CatalogMod> allMods = new ArrayList<>();
     private ExternalModsAdapter adapter;
     private RecyclerView recycler;

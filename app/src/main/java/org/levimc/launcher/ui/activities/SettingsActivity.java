@@ -779,7 +779,7 @@ public class SettingsActivity extends BaseActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/LiteLDev/LeviLaunchroid"))));
 
         findViewById(R.id.settings_btn_discord).setOnClickListener(v ->
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/jsnzw4ueAt"))));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(org.levimc.launcher.util.ShadowBranding.DISCORD_URL))));
     }
 
     private void handleUpdateButtonClick() {

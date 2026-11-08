@@ -222,7 +222,7 @@ public class InbuiltOverlayManager {
     }
 
     private void restorePersistedInbuiltModState(InbuiltModManager manager, String modId) {
-        if (manager.resolveInbuiltModEnabled(modId, false)) {
+        if (manager.resolveInbuiltModEnabled(modId, ShadowMods.defaultEnabled(modId))) {
             handleModToggle(modId, true);
         }
     }

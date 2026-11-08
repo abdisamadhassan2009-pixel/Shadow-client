@@ -815,6 +815,13 @@ import okhttp3.OkHttpClient;
 
     private void initMiscellaneousSection() {
         binding.miscCurseforgeRow.setOnClickListener(v -> openCurseForge());
+        binding.miscDiscordRow.setOnClickListener(v -> {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        android.net.Uri.parse(org.levimc.launcher.util.ShadowBranding.DISCORD_URL)));
+            } catch (Exception ignored) {
+            }
+        });
         binding.ghostBuildLabel.setText(getString(R.string.ghost_build_label, org.levimc.launcher.BuildConfig.VERSION_NAME));
         binding.miscImportPackRow.setOnClickListener(v -> ghostImportPackLauncher.launch(new String[]{"*/*"}));
         binding.miscAccountsRow.setOnClickListener(v -> startActivity(new Intent(this, AccountsActivity.class)));
