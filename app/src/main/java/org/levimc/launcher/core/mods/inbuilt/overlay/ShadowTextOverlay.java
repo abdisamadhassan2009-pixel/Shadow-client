@@ -28,6 +28,19 @@ public class ShadowTextOverlay implements ShadowHudElement {
         CharSequence get();
     }
 
+    /** Optional tap action outside the HUD editor (e.g. Stopwatch start/stop, hold to reset). */
+    public interface TapHandler {
+        void onTap(boolean longPress);
+    }
+
+    private TapHandler tapHandler;
+    private long touchDownAt;
+
+    public ShadowTextOverlay setTapHandler(TapHandler handler) {
+        this.tapHandler = handler;
+        return this;
+    }
+
     private static final float DRAG_THRESHOLD = 10f;
 
     private final Activity activity;
@@ -235,6 +248,7 @@ public class ShadowTextOverlay implements ShadowHudElement {
                 initialTouchX = event.getRawX();
                 initialTouchY = event.getRawY();
                 isDragging = false;
+                touchDownAt = android.os.SystemClock.uptimeMillis();
                 if (v.getParent() != null) v.getParent().requestDisallowInterceptTouchEvent(isHudEditorMode);
                 return true;
             case MotionEvent.ACTION_MOVE:
@@ -251,6 +265,11 @@ public class ShadowTextOverlay implements ShadowHudElement {
             case MotionEvent.ACTION_CANCEL:
                 if (isDragging && isHudEditorMode) {
                     InbuiltModManager.getInstance(activity).setOverlayPosition(modId, currentX(), currentY());
+                } else if (!isHudEditorMode && tapHandler != null
+                        && event.getActionMasked() == MotionEvent.ACTION_UP) {
+                    tapHandler.onTap(android.os.SystemClock.uptimeMillis() - touchDownAt > 600);
+                    lastText = null;
+                    updateDisplay();
                 }
                 isDragging = false;
                 if (v.getParent() != null) v.getParent().requestDisallowInterceptTouchEvent(false);

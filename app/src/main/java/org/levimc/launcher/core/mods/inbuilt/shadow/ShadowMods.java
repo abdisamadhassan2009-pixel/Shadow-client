@@ -26,10 +26,12 @@ public final class ShadowMods {
     public static final String BATTERY = "shadow_battery";
     public static final String SESSION_TIMER = "shadow_session_timer";
     public static final String CROSSHAIR = "shadow_crosshair";
+    public static final String WATERMARK = "shadow_watermark";
+    public static final String STOPWATCH = "shadow_stopwatch";
     public static final String UI_PACK = "shadow_ui_pack";
     public static final String PVP_PACK = "shadow_pvp_pack";
 
-    public static final String[] ALL = {KEYSTROKES, CROSSHAIR, PVP_PACK, UI_PACK, CLOCK, BATTERY, SESSION_TIMER};
+    public static final String[] ALL = {KEYSTROKES, CROSSHAIR, PVP_PACK, UI_PACK, WATERMARK, STOPWATCH, CLOCK, BATTERY, SESSION_TIMER};
 
     private static final int COLOR_ON = 0xFF3DDC97;
     private static final int COLOR_OFF = 0xFF8C93A1;
@@ -77,6 +79,8 @@ public final class ShadowMods {
             case BATTERY: return R.string.shadow_mod_battery;
             case CROSSHAIR: return R.string.shadow_mod_crosshair;
             case UI_PACK: return R.string.shadow_mod_ui_pack;
+            case WATERMARK: return R.string.shadow_mod_watermark;
+            case STOPWATCH: return R.string.shadow_mod_stopwatch;
             case PVP_PACK: return R.string.shadow_mod_pvp_pack;
             default: return R.string.shadow_mod_session_timer;
         }
@@ -89,6 +93,8 @@ public final class ShadowMods {
             case BATTERY: return R.string.shadow_mod_battery_desc;
             case CROSSHAIR: return R.string.shadow_mod_crosshair_desc;
             case UI_PACK: return R.string.shadow_mod_ui_pack_desc;
+            case WATERMARK: return R.string.shadow_mod_watermark_desc;
+            case STOPWATCH: return R.string.shadow_mod_stopwatch_desc;
             case PVP_PACK: return R.string.shadow_mod_pvp_pack_desc;
             default: return R.string.shadow_mod_session_timer_desc;
         }
@@ -101,6 +107,8 @@ public final class ShadowMods {
             case BATTERY: return R.drawable.ic_shadow_battery;
             case CROSSHAIR: return R.drawable.ic_shadow_crosshair;
             case UI_PACK: return R.drawable.ic_ghost_logo;
+            case WATERMARK: return R.drawable.ic_ghost_logo;
+            case STOPWATCH: return R.drawable.ic_shadow_timer;
             case PVP_PACK: return R.drawable.ic_shadow_crosshair;
             default: return R.drawable.ic_shadow_timer;
         }
@@ -110,6 +118,8 @@ public final class ShadowMods {
     public static int updateIntervalMs(String modId) {
         switch (modId) {
             case KEYSTROKES: return 50;
+            case STOPWATCH: return 100;
+            case WATERMARK: return 60_000;
             case BATTERY: return 30_000;
             default: return 1_000;
         }
@@ -123,12 +133,16 @@ public final class ShadowMods {
         if (CROSSHAIR.equals(modId)) {
             return new org.levimc.launcher.core.mods.inbuilt.overlay.ShadowCrosshairOverlay(activity, modId);
         }
-        return new ShadowTextOverlay(activity, modId, updateIntervalMs(modId), provider(activity, modId));
+        ShadowTextOverlay overlay = new ShadowTextOverlay(activity, modId, updateIntervalMs(modId), provider(activity, modId));
+        if (STOPWATCH.equals(modId)) overlay.setTapHandler(ShadowMods::stopwatchTap);
+        return overlay;
     }
 
     public static ShadowTextOverlay.TextProvider provider(Context context, String modId) {
         switch (modId) {
             case KEYSTROKES: return ShadowMods::keystrokes;
+            case WATERMARK: return ShadowMods::watermark;
+            case STOPWATCH: return ShadowMods::stopwatch;
             case CLOCK: return ShadowMods::clock;
             case BATTERY: return () -> battery(context.getApplicationContext());
             default: return ShadowMods::sessionTimer;
@@ -196,6 +210,33 @@ public final class ShadowMods {
         if (level < 0 || scale <= 0) return "Battery --";
         int pct = Math.round(level * 100f / scale);
         return "Battery " + pct + "%" + (plugged != 0 ? " +" : "");
+    }
+
+    private static CharSequence watermark() {
+        return "GHOST CLIENT  " + org.levimc.launcher.BuildConfig.VERSION_NAME;
+    }
+
+    // Stopwatch: tap to start/stop, hold to reset.
+    private static long stopwatchStart;     // elapsedRealtime when running, 0 when stopped
+    private static long stopwatchElapsed;   // accumulated ms while stopped
+
+    private static void stopwatchTap(boolean longPress) {
+        long now = SystemClock.elapsedRealtime();
+        if (longPress) {
+            stopwatchStart = 0;
+            stopwatchElapsed = 0;
+        } else if (stopwatchStart == 0) {
+            stopwatchStart = now;
+        } else {
+            stopwatchElapsed += now - stopwatchStart;
+            stopwatchStart = 0;
+        }
+    }
+
+    private static CharSequence stopwatch() {
+        long ms = stopwatchElapsed + (stopwatchStart == 0 ? 0 : SystemClock.elapsedRealtime() - stopwatchStart);
+        long m = ms / 60000, s = (ms / 1000) % 60, t = (ms / 100) % 10;
+        return (stopwatchStart == 0 ? "Stopwatch " : "\u25B6 ") + m + ":" + (s < 10 ? "0" : "") + s + "." + t;
     }
 
     private static CharSequence sessionTimer() {
