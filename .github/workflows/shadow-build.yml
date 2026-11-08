@@ -45,9 +45,16 @@ jobs:
           link-to-sdk: true
 
       - name: Build APK
+        env:
+          CF_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
         run: |
           chmod +x ./gradlew
           touch local.properties
+          if [ -n "${CF_API_KEY}" ]; then
+            echo "curseforge.api_key=${CF_API_KEY}" >> local.properties
+          else
+            echo "::warning::CURSEFORGE_API_KEY secret is not set; CurseForge search will not work in this build."
+          fi
           ./gradlew assembleDebug
 
       - name: Upload Shadow Client APK
