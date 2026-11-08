@@ -12,3 +12,7 @@ endif()
 add_subdirectory(preloader)
 add_subdirectory(libHttpClient/Build/libHttpClient.Android)
 add_subdirectory(worldtools)
+
+# Shadow Client: empty stand-in for the removed Discord SDK so the prebuilt libgxcore.so can load.
+add_library(discord_partner_sdk SHARED shadow_stubs/discord_partner_sdk_stub.cpp)
+set_target_properties(discord_partner_sdk PROPERTIES OUTPUT_NAME "discord_partner_sdk")
