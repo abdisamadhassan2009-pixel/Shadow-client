@@ -815,6 +815,7 @@ import okhttp3.OkHttpClient;
 
     private void initMiscellaneousSection() {
         binding.miscCurseforgeRow.setOnClickListener(v -> openCurseForge());
+        binding.ghostBuildLabel.setText(getString(R.string.ghost_build_label, org.levimc.launcher.BuildConfig.VERSION_NAME));
         binding.miscImportPackRow.setOnClickListener(v -> ghostImportPackLauncher.launch(new String[]{"*/*"}));
         binding.miscAccountsRow.setOnClickListener(v -> startActivity(new Intent(this, AccountsActivity.class)));
         binding.miscQuickLaunchRow.setOnClickListener(v -> startActivity(new Intent(this, QuickLaunchActivity.class)));

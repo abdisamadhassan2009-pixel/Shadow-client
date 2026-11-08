@@ -41,6 +41,12 @@ def getGitTag() {
     return tag
 }
 
+// Ghost Client: version = GitHub Actions run number, matching the release tag build-N.
+static def getGhostVersionName() {
+    def run = System.getenv("GITHUB_RUN_NUMBER")
+    return (run != null && !run.trim().isEmpty()) ? "build " + run.trim() : "dev"
+}
+
 static def getVersionCodeByTimestamp() {
     def baseDate = Date.parse("yyyy-MM-dd HH:mm:ss", "2025-01-01 00:00:00")
     def now = new Date()
@@ -56,7 +62,7 @@ android {
         minSdkVersion 28
         targetSdkVersion 35
         versionCode getVersionCodeByTimestamp()
-        versionName getGitTag()
+        versionName getGhostVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "CURSEFORGE_API_KEY", "\"${localProperties.getProperty('curseforge.api_key', '')}\""
         buildConfigField 'long', 'DISCORD_APPLICATION_ID', "${discordApplicationId}L"
