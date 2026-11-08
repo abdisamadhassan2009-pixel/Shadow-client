@@ -17,6 +17,12 @@ object NativeBridgeHelper {
     @Volatile
     private var gxcoreLoaded = false
 
+    /** Ghost Client: the real reason gxcore failed to load, shown in the launch log. */
+    @Volatile
+    @JvmStatic
+    var lastGxCoreLoadError: String? = null
+        private set
+
     @JvmStatic
     fun getAppContext(): Context {
         return LauncherApplication.context
@@ -34,8 +40,11 @@ object NativeBridgeHelper {
                 try {
                     System.loadLibrary("gxcore")
                     gxcoreLoaded = true
+                    lastGxCoreLoadError = null
                     true
-                } catch (_: Throwable) {
+                } catch (error: Throwable) {
+                    lastGxCoreLoadError = error.javaClass.simpleName + ": " + (error.message ?: "no message")
+                    android.util.Log.e("GhostClient", "Failed to load libgxcore.so", error)
                     false
                 }
             }
