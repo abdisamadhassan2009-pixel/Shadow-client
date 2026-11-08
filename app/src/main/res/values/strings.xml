@@ -1105,6 +1105,11 @@
     <string name="ghost_welcome_back">Welcome back!</string>
     <string name="ghost_welcome_back_name">Welcome back, %1$s!</string>
 
+    <string name="ghost_curseforge_import_hint">Download a pack, then open the file and choose Ghost Client to import it</string>
+    <string name="ghost_curseforge_no_browser">No browser found to open CurseForge</string>
+
+    <string name="ghost_import_pack">Import pack</string>
+
     <!-- Ghost Client PvP HUD mods -->
     <string name="shadow_mod_keystrokes">Keystrokes</string>
     <string name="shadow_mod_keystrokes_desc">Shows your taps per second, or W A S D, mouse clicks, Space and Shift when you play with a keyboard</string>

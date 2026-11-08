@@ -88,6 +88,16 @@ import okhttp3.OkHttpClient;
 
  public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
+    // Ghost Client: pick a .mcpack / .mcaddon / .mcworld / .mctemplate and import it the same
+    // way as opening the file from another app.
+    private final androidx.activity.result.ActivityResultLauncher<String[]> ghostImportPackLauncher =
+            registerForActivityResult(new androidx.activity.result.contract.ActivityResultContracts.OpenDocument(), uri -> {
+                if (uri == null) return;
+                Intent importIntent = new Intent(Intent.ACTION_VIEW, uri);
+                importIntent.setClass(this, IntentHandler.class);
+                importIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(importIntent);
+            });
     private MinecraftLauncher minecraftLauncher;
     private LanguageManager languageManager;
     private PermissionsHandler permissionsHandler;
@@ -804,9 +814,34 @@ import okhttp3.OkHttpClient;
     }
 
     private void initMiscellaneousSection() {
-        binding.miscCurseforgeRow.setOnClickListener(v -> startActivity(new Intent(this, CurseForgeActivity.class)));
+        binding.miscCurseforgeRow.setOnClickListener(v -> openCurseForge());
+        binding.miscImportPackRow.setOnClickListener(v -> ghostImportPackLauncher.launch(new String[]{"*/*"}));
         binding.miscAccountsRow.setOnClickListener(v -> startActivity(new Intent(this, AccountsActivity.class)));
         binding.miscQuickLaunchRow.setOnClickListener(v -> startActivity(new Intent(this, QuickLaunchActivity.class)));
+    }
+
+    // Ghost Client: with a CurseForge API key, use the in-app browser; without one, open the
+    // CurseForge website so players can download packs and open the file with Ghost Client.
+    private void openCurseForge() {
+        if (!android.text.TextUtils.isEmpty(org.levimc.launcher.BuildConfig.CURSEFORGE_API_KEY)) {
+            startActivity(new Intent(this, CurseForgeActivity.class));
+            return;
+        }
+        android.net.Uri uri = android.net.Uri.parse("https://www.curseforge.com/minecraft-bedrock");
+        try {
+            new androidx.browser.customtabs.CustomTabsIntent.Builder()
+                    .setShowTitle(true)
+                    .build()
+                    .launchUrl(this, uri);
+        } catch (Exception customTabError) {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            } catch (Exception browserError) {
+                android.widget.Toast.makeText(this, R.string.ghost_curseforge_no_browser, android.widget.Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        android.widget.Toast.makeText(this, R.string.ghost_curseforge_import_hint, android.widget.Toast.LENGTH_LONG).show();
     }
 
     private void openModsFullscreen() {
