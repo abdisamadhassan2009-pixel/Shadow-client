@@ -1,3 +1,6 @@
+# Ghost Client: libgxcore.so registers natives on these classes at load time; keep them.
+-keep class org.levimc.launcher.core.discord.DiscordPresenceNative { *; }
+-keep class com.discord.** { *; }
 -keepattributes Signature,InnerClasses,EnclosingMethod,*Annotation*,SourceFile,LineNumberTable
 
 
