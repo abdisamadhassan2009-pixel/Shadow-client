@@ -1101,4 +1101,13 @@
     <string name="bg_media_blur_unavailable">Android 12+</string>
     <string name="screenshot_saved">Screenshot saved</string>
     <string name="backup_select_downloads">Select the Downloads folder to save backups in Downloads/LeviLauncher/Backups.</string>
+    <!-- Shadow Client PvP HUD mods -->
+    <string name="shadow_mod_keystrokes">Keystrokes</string>
+    <string name="shadow_mod_keystrokes_desc">Shows your taps per second, or W A S D, mouse clicks, Space and Shift when you play with a keyboard</string>
+    <string name="shadow_mod_clock">Clock</string>
+    <string name="shadow_mod_clock_desc">Shows the current time on your HUD</string>
+    <string name="shadow_mod_battery">Battery</string>
+    <string name="shadow_mod_battery_desc">Shows your phone\'s battery level, with + while charging</string>
+    <string name="shadow_mod_session_timer">Session Timer</string>
+    <string name="shadow_mod_session_timer_desc">Shows how long you have been playing this session</string>
 </resources>

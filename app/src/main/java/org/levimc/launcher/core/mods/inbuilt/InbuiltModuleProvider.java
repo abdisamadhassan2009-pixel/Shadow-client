@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import org.levimc.launcher.R;
 import org.levimc.launcher.core.mods.inbuilt.manager.InbuiltModManager;
+import org.levimc.launcher.core.mods.inbuilt.shadow.ShadowMods;
 import org.levimc.launcher.core.mods.inbuilt.model.ModIds;
 import org.levimc.launcher.core.mods.inbuilt.overlay.InbuiltOverlayManager;
 import org.levimc.launcher.core.mods.inbuilt.overlay.MoreButtonsEditor;
@@ -53,6 +54,12 @@ public final class InbuiltModuleProvider {
         InbuiltOverlayManager overlayManager = InbuiltOverlayManager.getInstance();
         String groupName = activity.getString(R.string.mod_menu_group_inbuilt);
         List<UnifiedMod> mods = new ArrayList<>();
+
+        // Shadow Client PvP HUD mods come first in the menu.
+        for (String shadowId : ShadowMods.ALL) {
+            mods.add(create(activity, manager, overlayManager, shadowId,
+                    ShadowMods.nameRes(shadowId), ShadowMods.descRes(shadowId), groupName));
+        }
 
         mods.add(create(activity, manager, overlayManager, ModIds.QUICK_DROP,
                 R.string.inbuilt_mod_quick_drop, R.string.inbuilt_mod_quick_drop_desc,
@@ -236,6 +243,7 @@ public final class InbuiltModuleProvider {
             if (!ModIds.HOTBAR_SLOT.equals(modId)) {
                 configs.add(config(CFG_OVERLAY_SIZE,
                         context.getString(ModIds.FPS_DISPLAY.equals(modId) || ModIds.CPS_DISPLAY.equals(modId)
+                                || ShadowMods.isShadowMod(modId)
                                 ? R.string.mod_config_display_size_dp : R.string.mod_config_overlay_button_size_dp),
                         UnifiedMod.ConfigType.SLIDER_INT,
                         "56", "20", "100",

@@ -5,6 +5,9 @@ import org.levimc.launcher.core.mods.inbuilt.model.ModIds;
 
 public class ModIconHelper {
     public static int getModIcon(String modId) {
+        if (org.levimc.launcher.core.mods.inbuilt.shadow.ShadowMods.isShadowMod(modId)) {
+            return org.levimc.launcher.core.mods.inbuilt.shadow.ShadowMods.iconRes(modId);
+        }
         return switch (modId) {
             case ModIds.QUICK_DROP -> R.drawable.ic_quick_drop;
             case ModIds.CAMERA_PERSPECTIVE -> R.drawable.ic_camera;

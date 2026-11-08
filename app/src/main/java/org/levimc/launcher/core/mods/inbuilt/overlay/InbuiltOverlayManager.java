@@ -8,6 +8,8 @@ import org.levimc.launcher.core.mods.inbuilt.ExternalModBridge;
 import org.levimc.launcher.core.mods.inbuilt.manager.InbuiltModManager;
 import org.levimc.launcher.core.mods.inbuilt.manager.MoreButtonsManager;
 import org.levimc.launcher.core.mods.inbuilt.model.MoreButtonConfig;
+import org.levimc.launcher.core.mods.inbuilt.shadow.ShadowInputTracker;
+import org.levimc.launcher.core.mods.inbuilt.shadow.ShadowMods;
 import org.levimc.launcher.core.mods.inbuilt.model.ModIds;
 import org.levimc.launcher.core.mods.inbuilt.nativemod.PojavControlsMod;
 import org.levimc.launcher.core.mods.inbuilt.nativemod.HotbarSlotMod;
@@ -53,6 +55,7 @@ public class InbuiltOverlayManager {
     private GyroOverlay gyroOverlay;
     private FpsDisplayOverlay fpsDisplayOverlay;
     private CpsDisplayOverlay cpsDisplayOverlay;
+    private final Map<String, ShadowTextOverlay> shadowOverlays = new HashMap<>();
     private ModMenuButton modMenuButton;
     private ModMenuOverlay modMenuOverlay;
     private boolean modMenuOpenedFromButton;
@@ -173,6 +176,7 @@ public class InbuiltOverlayManager {
         modActiveStates.put(ModIds.POJAV_CONTROLS, false);
         modActiveStates.put(ModIds.MORE_BUTTONS, false);
         modActiveStates.put(ModIds.HOTBAR_SLOT, false);
+        for (String shadowId : ShadowMods.ALL) modActiveStates.put(shadowId, false);
 
         modPositionMap.put(ModIds.QUICK_DROP, nextY + SPACING);
         modPositionMap.put(ModIds.CAMERA_PERSPECTIVE, nextY + SPACING * 2);
@@ -209,6 +213,7 @@ public class InbuiltOverlayManager {
         restorePersistedInbuiltModState(manager, ModIds.POJAV_CONTROLS);
         restorePersistedInbuiltModState(manager, ModIds.MORE_BUTTONS);
         restorePersistedInbuiltModState(manager, ModIds.HOTBAR_SLOT);
+        for (String shadowId : ShadowMods.ALL) restorePersistedInbuiltModState(manager, shadowId);
 
         modMenuButton = new ModMenuButton(activity);
         modMenuButton.show(START_X, nextY);
@@ -288,6 +293,17 @@ public class InbuiltOverlayManager {
 
         int savedX = manager.getOverlayPositionX(modId, centerX);
         int savedY = manager.getOverlayPositionY(modId, centerY);
+
+        if (ShadowMods.isShadowMod(modId)) {
+            if (!shadowOverlays.containsKey(modId)) {
+                ShadowTextOverlay shadowOverlay = new ShadowTextOverlay(activity, modId,
+                        ShadowMods.updateIntervalMs(modId), ShadowMods.provider(activity, modId));
+                shadowOverlays.put(modId, shadowOverlay);
+                shadowOverlay.setHudEditorMode(hudEditorMode);
+                shadowOverlay.show(savedX, savedY);
+            }
+            return;
+        }
 
         switch (modId) {
             case ModIds.QUICK_DROP:
@@ -419,6 +435,12 @@ public class InbuiltOverlayManager {
                 cpsDisplayOverlay.hide();
                 cpsDisplayOverlay = null;
             }
+            return;
+        }
+
+        if (ShadowMods.isShadowMod(modId)) {
+            ShadowTextOverlay shadowOverlay = shadowOverlays.remove(modId);
+            if (shadowOverlay != null) shadowOverlay.hide();
             return;
         }
 
@@ -735,6 +757,8 @@ public class InbuiltOverlayManager {
             cpsDisplayOverlay.hide();
             cpsDisplayOverlay = null;
         }
+        for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) shadowOverlay.hide();
+        shadowOverlays.clear();
         if (snaplookOverlay != null) {
             snaplookOverlay.hide();
             snaplookOverlay = null;
@@ -786,6 +810,7 @@ public class InbuiltOverlayManager {
     }
 
     public boolean handleKeyEvent(KeyEvent event) {
+        if (shadowOverlays.containsKey(ShadowMods.KEYSTROKES)) ShadowInputTracker.onKey(event);
         int keyCode = event.getKeyCode();
         int action = event.getAction();
         if (action == KeyEvent.ACTION_UP) {
@@ -875,6 +900,9 @@ public class InbuiltOverlayManager {
     }
 
     public boolean handleTouchEvent(MotionEvent event) {
+        if (shadowOverlays.containsKey(ShadowMods.KEYSTROKES)) {
+            ShadowInputTracker.onTouch(event, activity.getResources().getDisplayMetrics().widthPixels);
+        }
         if (launcherHudHidden && InbuiltModManager.getInstance(activity).isLauncherHudHideEnabled()) return false;
         if (cpsDisplayOverlay != null) {
             return cpsDisplayOverlay.handleTouchEvent(event);
@@ -883,6 +911,7 @@ public class InbuiltOverlayManager {
     }
 
     public boolean handleMouseEvent(MotionEvent event) {
+        if (shadowOverlays.containsKey(ShadowMods.KEYSTROKES)) ShadowInputTracker.onMouse(event);
         if (launcherHudHidden && InbuiltModManager.getInstance(activity).isLauncherHudHideEnabled()) return false;
         if (cpsDisplayOverlay != null) {
             return cpsDisplayOverlay.handleMouseEvent(event);
@@ -914,6 +943,10 @@ public class InbuiltOverlayManager {
         if (modId.equals(ModIds.CPS_DISPLAY) && cpsDisplayOverlay != null) {
             cpsDisplayOverlay.applyConfigurationChanges();
         }
+        ShadowTextOverlay configuredShadow = shadowOverlays.get(modId);
+        if (configuredShadow != null) {
+            configuredShadow.applyConfigurationChanges();
+        }
         if (modId.equals(ModIds.MORE_BUTTONS)) {
             refreshMoreButtons();
         }
@@ -933,6 +966,9 @@ public class InbuiltOverlayManager {
         }
         if (cpsDisplayOverlay != null) {
             cpsDisplayOverlay.setHudEditorMode(active);
+        }
+        for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) {
+            shadowOverlay.setHudEditorMode(active);
         }
         if (hudOverlay != null) {
             hudOverlay.setHudEditorMode(active);
@@ -1020,6 +1056,8 @@ public class InbuiltOverlayManager {
                 fpsDisplayOverlay.applyConfigurationChanges();
             } else if (selectedDisplayModId.equals(ModIds.CPS_DISPLAY) && cpsDisplayOverlay != null) {
                 cpsDisplayOverlay.applyConfigurationChanges();
+            } else if (shadowOverlays.containsKey(selectedDisplayModId)) {
+                shadowOverlays.get(selectedDisplayModId).applyConfigurationChanges();
             }
         }
     }
@@ -1084,6 +1122,10 @@ public class InbuiltOverlayManager {
         if (cpsDisplayOverlay != null) {
             manager.setOverlayPosition(ModIds.CPS_DISPLAY, centerX, centerY);
             cpsDisplayOverlay.updatePosition(centerX, centerY);
+        }
+        for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) {
+            manager.setOverlayPosition(shadowOverlay.getModId(), centerX, centerY);
+            shadowOverlay.updatePosition(centerX, centerY);
         }
         
         java.util.Set<String> explicitHudModules = new java.util.HashSet<>();
@@ -1165,6 +1207,9 @@ public class InbuiltOverlayManager {
         }
         stateHash = 31L * stateHash + (fpsDisplayOverlay == null ? 0L : System.identityHashCode(fpsDisplayOverlay));
         stateHash = 31L * stateHash + (cpsDisplayOverlay == null ? 0L : System.identityHashCode(cpsDisplayOverlay));
+        for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) {
+            stateHash = 31L * stateHash + System.identityHashCode(shadowOverlay);
+        }
         stateHash = 31L * stateHash + (chickPetOverlay == null ? 0L : System.identityHashCode(chickPetOverlay));
         stateHash = 31L * stateHash + (modMenuButton == null ? 0L : System.identityHashCode(modMenuButton));
         stateHash = 31L * stateHash + (hudOverlay == null ? 0L : System.identityHashCode(hudOverlay));
@@ -1230,6 +1275,13 @@ public class InbuiltOverlayManager {
                         ? android.view.View.VISIBLE
                         : android.view.View.GONE;
                 cpsDisplayOverlay.setVisibility(visibility);
+            }
+
+            for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) {
+                int visibility = !hideLauncherOverlays && (inbuiltVisible || manager.isOverlayShowEverywhere(shadowOverlay.getModId()))
+                        ? android.view.View.VISIBLE
+                        : android.view.View.GONE;
+                shadowOverlay.setVisibility(visibility);
             }
         });
     }
