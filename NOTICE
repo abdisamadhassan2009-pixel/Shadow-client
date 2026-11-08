@@ -1,0 +1,11 @@
+Ghost Client
+https://github.com/abdisamadhassan2009-pixel/Shadow-client  |  https://discord.gg/shadowpvp
+
+Ghost Client is based on LeviLauncher for Android by LiteLDev / LeviMC
+(https://github.com/LiteLDev/LeviLaunchroid), licensed under the Apache
+License 2.0 (see LICENSE). Prebuilt native libraries from that project (for
+example libgxcore.so) remain the work of their authors.
+
+Thanks to Flarial (https://discord.gg/flarial, https://github.com/flarialmc/dll-oss)
+for inspiration: Ghost Client's Custom Crosshair follows Flarial's default
+crosshair style. It is an independent implementation and contains no Flarial code.

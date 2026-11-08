@@ -23,7 +23,7 @@ import org.levimc.launcher.core.mods.inbuilt.manager.InbuiltModManager;
  * Based on the CPS display overlay, generalised over the mod id and text source.
  * Performance: refreshes on its own interval and only calls setText when the text changed.
  */
-public class ShadowTextOverlay {
+public class ShadowTextOverlay implements ShadowHudElement {
     public interface TextProvider {
         CharSequence get();
     }

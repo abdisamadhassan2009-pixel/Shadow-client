@@ -25,8 +25,9 @@ public final class ShadowMods {
     public static final String CLOCK = "shadow_clock";
     public static final String BATTERY = "shadow_battery";
     public static final String SESSION_TIMER = "shadow_session_timer";
+    public static final String CROSSHAIR = "shadow_crosshair";
 
-    public static final String[] ALL = {KEYSTROKES, CLOCK, BATTERY, SESSION_TIMER};
+    public static final String[] ALL = {KEYSTROKES, CROSSHAIR, CLOCK, BATTERY, SESSION_TIMER};
 
     private static final int COLOR_ON = 0xFF3DDC97;
     private static final int COLOR_OFF = 0xFF8C93A1;
@@ -53,6 +54,7 @@ public final class ShadowMods {
             case KEYSTROKES: return R.string.shadow_mod_keystrokes;
             case CLOCK: return R.string.shadow_mod_clock;
             case BATTERY: return R.string.shadow_mod_battery;
+            case CROSSHAIR: return R.string.shadow_mod_crosshair;
             default: return R.string.shadow_mod_session_timer;
         }
     }
@@ -62,6 +64,7 @@ public final class ShadowMods {
             case KEYSTROKES: return R.string.shadow_mod_keystrokes_desc;
             case CLOCK: return R.string.shadow_mod_clock_desc;
             case BATTERY: return R.string.shadow_mod_battery_desc;
+            case CROSSHAIR: return R.string.shadow_mod_crosshair_desc;
             default: return R.string.shadow_mod_session_timer_desc;
         }
     }
@@ -71,6 +74,7 @@ public final class ShadowMods {
             case KEYSTROKES: return R.drawable.ic_shadow_keystrokes;
             case CLOCK: return R.drawable.ic_shadow_clock;
             case BATTERY: return R.drawable.ic_shadow_battery;
+            case CROSSHAIR: return R.drawable.ic_shadow_crosshair;
             default: return R.drawable.ic_shadow_timer;
         }
     }
@@ -82,6 +86,14 @@ public final class ShadowMods {
             case BATTERY: return 30_000;
             default: return 1_000;
         }
+    }
+
+    /** Builds the on-screen widget for a Ghost mod. */
+    public static org.levimc.launcher.core.mods.inbuilt.overlay.ShadowHudElement createOverlay(android.app.Activity activity, String modId) {
+        if (CROSSHAIR.equals(modId)) {
+            return new org.levimc.launcher.core.mods.inbuilt.overlay.ShadowCrosshairOverlay(activity, modId);
+        }
+        return new ShadowTextOverlay(activity, modId, updateIntervalMs(modId), provider(activity, modId));
     }
 
     public static ShadowTextOverlay.TextProvider provider(Context context, String modId) {

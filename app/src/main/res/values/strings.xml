@@ -871,7 +871,7 @@
     <string name="vanilla_prefix">Vanilla %s</string>
 
     <string name="about_page_title">About</string>
-    <string name="about_subtitle">Ghost Client — based on LeviLauncher by LiteLDev (Apache 2.0)</string>
+    <string name="about_subtitle">Ghost Client — based on LeviLauncher by LiteLDev (Apache 2.0). Thanks to Flarial (discord.gg/flarial)</string>
     <string name="about_authors_title">👥 Authors &amp; Maintainers</string>
     <string name="about_author_name">DreamGuXiang</string>
     <string name="about_author_badge">Author</string>
@@ -1117,6 +1117,8 @@
     <!-- Ghost Client PvP HUD mods -->
     <string name="shadow_mod_keystrokes">Keystrokes</string>
     <string name="shadow_mod_keystrokes_desc">Shows your taps per second, or W A S D, mouse clicks, Space and Shift when you play with a keyboard</string>
+    <string name="shadow_mod_crosshair">Custom Crosshair</string>
+    <string name="shadow_mod_crosshair_desc">A clean crosshair in the centre of your screen, in Flarial\'s default style (discord.gg/flarial)</string>
     <string name="shadow_mod_clock">Clock</string>
     <string name="shadow_mod_clock_desc">Shows the current time on your HUD</string>
     <string name="shadow_mod_battery">Battery</string>

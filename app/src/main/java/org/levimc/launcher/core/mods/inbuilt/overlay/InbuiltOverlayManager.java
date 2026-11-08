@@ -55,7 +55,7 @@ public class InbuiltOverlayManager {
     private GyroOverlay gyroOverlay;
     private FpsDisplayOverlay fpsDisplayOverlay;
     private CpsDisplayOverlay cpsDisplayOverlay;
-    private final Map<String, ShadowTextOverlay> shadowOverlays = new HashMap<>();
+    private final Map<String, ShadowHudElement> shadowOverlays = new HashMap<>();
     private ModMenuButton modMenuButton;
     private ModMenuOverlay modMenuOverlay;
     private boolean modMenuOpenedFromButton;
@@ -296,8 +296,7 @@ public class InbuiltOverlayManager {
 
         if (ShadowMods.isShadowMod(modId)) {
             if (!shadowOverlays.containsKey(modId)) {
-                ShadowTextOverlay shadowOverlay = new ShadowTextOverlay(activity, modId,
-                        ShadowMods.updateIntervalMs(modId), ShadowMods.provider(activity, modId));
+                ShadowHudElement shadowOverlay = ShadowMods.createOverlay(activity, modId);
                 shadowOverlays.put(modId, shadowOverlay);
                 shadowOverlay.setHudEditorMode(hudEditorMode);
                 shadowOverlay.show(savedX, savedY);
@@ -439,7 +438,7 @@ public class InbuiltOverlayManager {
         }
 
         if (ShadowMods.isShadowMod(modId)) {
-            ShadowTextOverlay shadowOverlay = shadowOverlays.remove(modId);
+            ShadowHudElement shadowOverlay = shadowOverlays.remove(modId);
             if (shadowOverlay != null) shadowOverlay.hide();
             return;
         }
@@ -757,7 +756,7 @@ public class InbuiltOverlayManager {
             cpsDisplayOverlay.hide();
             cpsDisplayOverlay = null;
         }
-        for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) shadowOverlay.hide();
+        for (ShadowHudElement shadowOverlay : shadowOverlays.values()) shadowOverlay.hide();
         shadowOverlays.clear();
         if (snaplookOverlay != null) {
             snaplookOverlay.hide();
@@ -943,7 +942,7 @@ public class InbuiltOverlayManager {
         if (modId.equals(ModIds.CPS_DISPLAY) && cpsDisplayOverlay != null) {
             cpsDisplayOverlay.applyConfigurationChanges();
         }
-        ShadowTextOverlay configuredShadow = shadowOverlays.get(modId);
+        ShadowHudElement configuredShadow = shadowOverlays.get(modId);
         if (configuredShadow != null) {
             configuredShadow.applyConfigurationChanges();
         }
@@ -967,7 +966,7 @@ public class InbuiltOverlayManager {
         if (cpsDisplayOverlay != null) {
             cpsDisplayOverlay.setHudEditorMode(active);
         }
-        for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) {
+        for (ShadowHudElement shadowOverlay : shadowOverlays.values()) {
             shadowOverlay.setHudEditorMode(active);
         }
         if (hudOverlay != null) {
@@ -1123,7 +1122,7 @@ public class InbuiltOverlayManager {
             manager.setOverlayPosition(ModIds.CPS_DISPLAY, centerX, centerY);
             cpsDisplayOverlay.updatePosition(centerX, centerY);
         }
-        for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) {
+        for (ShadowHudElement shadowOverlay : shadowOverlays.values()) {
             manager.setOverlayPosition(shadowOverlay.getModId(), centerX, centerY);
             shadowOverlay.updatePosition(centerX, centerY);
         }
@@ -1207,7 +1206,7 @@ public class InbuiltOverlayManager {
         }
         stateHash = 31L * stateHash + (fpsDisplayOverlay == null ? 0L : System.identityHashCode(fpsDisplayOverlay));
         stateHash = 31L * stateHash + (cpsDisplayOverlay == null ? 0L : System.identityHashCode(cpsDisplayOverlay));
-        for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) {
+        for (ShadowHudElement shadowOverlay : shadowOverlays.values()) {
             stateHash = 31L * stateHash + System.identityHashCode(shadowOverlay);
         }
         stateHash = 31L * stateHash + (chickPetOverlay == null ? 0L : System.identityHashCode(chickPetOverlay));
@@ -1277,7 +1276,7 @@ public class InbuiltOverlayManager {
                 cpsDisplayOverlay.setVisibility(visibility);
             }
 
-            for (ShadowTextOverlay shadowOverlay : shadowOverlays.values()) {
+            for (ShadowHudElement shadowOverlay : shadowOverlays.values()) {
                 int visibility = !hideLauncherOverlays && (inbuiltVisible || manager.isOverlayShowEverywhere(shadowOverlay.getModId()))
                         ? android.view.View.VISIBLE
                         : android.view.View.GONE;
