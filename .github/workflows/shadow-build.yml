@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -54,3 +56,21 @@ jobs:
           name: ShadowClient-apk
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
+
+      - name: Rename APK for release
+        if: github.ref == 'refs/heads/main'
+        run: |
+          APK=$(ls app/build/outputs/apk/debug/*.apk | head -n 1)
+          cp "$APK" ShadowClient.apk
+
+      - name: Publish APK to Releases
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Shadow Client build ${{ github.run_number }}
+          body: |
+            Download **ShadowClient.apk** below and open it on your Android phone to install.
+            Requires Minecraft Bedrock bought from Google Play.
+          files: ShadowClient.apk
+          make_latest: true
