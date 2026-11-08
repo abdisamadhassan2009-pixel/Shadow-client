@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#4AE0A0</color>
+    <color name="primary">#6E8BFF</color>
     <color name="on_primary">#000000</color>
 
     <color name="secondary">#00FFFF</color>
     <color name="on_secondary">#000000</color>
 
-    <color name="primary_container">#1A3A2A</color>
-    <color name="on_primary_container">#4AE0A0</color>
+    <color name="primary_container">#1C2340</color>
+    <color name="on_primary_container">#9DB2FF</color>
 
     <color name="tertiary">#81D4FA</color>
     <color name="on_tertiary">#000000</color>
@@ -16,14 +16,14 @@
     <color name="error">#FF6B6B</color>
     <color name="on_error">#000000</color>
 
-    <color name="background">#000000</color>
-    <color name="surface">#0A0A0A</color>
-    <color name="surface_variant">#1A1A1A</color>
-    <color name="on_background">#FFFFFF</color>
-    <color name="on_surface">#FFFFFF</color>
+    <color name="background">#0C0D10</color>
+    <color name="surface">#121318</color>
+    <color name="surface_variant">#1A1C22</color>
+    <color name="on_background">#F2F4F8</color>
+    <color name="on_surface">#F2F4F8</color>
 
-    <color name="outline">#2C2C2E</color>
-    <color name="divider">#333333</color>
+    <color name="outline">#262A33</color>
+    <color name="divider">#22252D</color>
 
     <color name="white">#FFFFFF</color>
     <color name="scrim">#99000000</color>
@@ -32,9 +32,9 @@
     <color name="glow_cyan">#00FFFF</color>
 
     <color name="abi_label_text">#FFFFFF</color>
-    <color name="accent_text">#4AE0A0</color>
+    <color name="accent_text">#9DB2FF</color>
 
-    <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#AAAAAA</color>
+    <color name="text_primary">#F2F4F8</color>
+    <color name="text_secondary">#A3A9B6</color>
     <color name="qa_icon_color">#FFFFFF</color>
 </resources>

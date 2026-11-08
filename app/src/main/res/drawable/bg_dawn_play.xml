@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ghost Client: chunky Minecraft-style green Play button (3D bottom edge, flattens when pressed) -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="#3A4A40" />
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <layer-list>
+            <item android:top="3dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#26A65B" />
+                    <corners android:radius="10dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#1C7F45" />
+                    <corners android:radius="10dp" />
+                </shape>
+            </item>
+            <item android:bottom="4dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#2FB969" />
+                    <corners android:radius="10dp" />
+                </shape>
+            </item>
+            <item android:bottom="4dp" android:left="6dp" android:right="6dp" android:top="2dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#00000000" />
+                    <stroke android:width="0dp" android:color="#00000000" />
+                </shape>
+            </item>
+            <item android:top="1dp" android:left="8dp" android:right="8dp" android:gravity="top">
+                <shape android:shape="rectangle">
+                    <size android:height="2dp" />
+                    <solid android:color="#59FFFFFF" />
+                    <corners android:radius="1dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

@@ -118,8 +118,9 @@ public class BaseActivity extends AppCompatActivity {
             return;
         }
 
+        // Ghost Client: Dawn-style layout, icon rail on the left and content on the right.
         LinearLayout wrapper = new LinearLayout(this);
-        wrapper.setOrientation(LinearLayout.VERTICAL);
+        wrapper.setOrientation(LinearLayout.HORIZONTAL);
         wrapper.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -129,7 +130,7 @@ public class BaseActivity extends AppCompatActivity {
         wrapper.addView(navBar);
 
         LinearLayout.LayoutParams contentParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f);
+                0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
         contentView.setLayoutParams(contentParams);
         wrapper.addView(contentView);
 

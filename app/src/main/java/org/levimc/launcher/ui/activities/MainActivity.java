@@ -225,6 +225,7 @@ import okhttp3.OkHttpClient;
 
     private void refreshAccountHeaderUI() {
         MsftAccountStore.MsftAccount active = getActiveAccount();
+        updateGhostWelcome(active);
         if (active == null) {
             if (signInButton != null) signInButton.setVisibility(View.VISIBLE);
             if (accountAvatarContainer != null) accountAvatarContainer.setVisibility(View.GONE);
@@ -235,6 +236,21 @@ import okhttp3.OkHttpClient;
             if (signInButton != null) signInButton.setVisibility(View.GONE);
             if (accountAvatarContainer != null) accountAvatarContainer.setVisibility(View.VISIBLE);
             loadXboxAvatar(active);
+        }
+    }
+
+    // Ghost Client: Dawn-style "Welcome back, <gamertag>!" header.
+    private void updateGhostWelcome(MsftAccountStore.MsftAccount active) {
+        if (binding == null || binding.minecraftTitleText == null) return;
+        String name = null;
+        if (active != null) {
+            name = active.xboxGamertag;
+            if (name == null || name.trim().isEmpty()) name = active.minecraftUsername;
+        }
+        if (name == null || name.trim().isEmpty()) {
+            binding.minecraftTitleText.setText(R.string.ghost_welcome_back);
+        } else {
+            binding.minecraftTitleText.setText(getString(R.string.ghost_welcome_back_name, name.trim()));
         }
     }
 

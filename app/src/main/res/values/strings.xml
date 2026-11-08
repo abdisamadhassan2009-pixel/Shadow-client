@@ -1101,6 +1101,10 @@
     <string name="bg_media_blur_unavailable">Android 12+</string>
     <string name="screenshot_saved">Screenshot saved</string>
     <string name="backup_select_downloads">Select the Downloads folder to save backups in Downloads/LeviLauncher/Backups.</string>
+    <!-- Ghost Client launcher home -->
+    <string name="ghost_welcome_back">Welcome back!</string>
+    <string name="ghost_welcome_back_name">Welcome back, %1$s!</string>
+
     <!-- Ghost Client PvP HUD mods -->
     <string name="shadow_mod_keystrokes">Keystrokes</string>
     <string name="shadow_mod_keystrokes_desc">Shows your taps per second, or W A S D, mouse clicks, Space and Shift when you play with a keyboard</string>
