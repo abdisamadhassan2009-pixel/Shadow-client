@@ -58,6 +58,9 @@ android {
     namespace 'org.levimc.launcher'
     compileSdkVersion 36
     defaultConfig {
+        // Ghost Client: must stay org.levimc.launcher. The prebuilt libgxcore.so refuses to
+        // load (JNI_OnLoad returns JNI_ERR) under any other application id, and Minecraft
+        // cannot launch without it. Display name/branding are Ghost Client regardless.
         applicationId "org.levimc.launcher"
         minSdkVersion 28
         targetSdkVersion 35
