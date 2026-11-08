@@ -37,7 +37,19 @@ final class BundledResourcePackInstaller {
     private BundledResourcePackInstaller() {}
 
     static int sync(List<Mod> mods, Set<String> loadedModIds, File... gameDataDirs) throws IOException {
+        return sync(mods, loadedModIds, null, gameDataDirs);
+    }
+
+    /** Ghost Client: same as sync, plus resource packs bundled with the launcher itself. */
+    static int sync(List<Mod> mods, Set<String> loadedModIds, List<File> launcherPackRoots,
+                    File... gameDataDirs) throws IOException {
         List<Pack> packs = discover(mods, loadedModIds);
+        if (launcherPackRoots != null) {
+            for (File root : launcherPackRoots) {
+                Pack pack = readPack("ghost_client", root, PackType.RESOURCE);
+                if (pack != null) packs.add(pack);
+            }
+        }
         for (Pack pack : packs) pack.sourceFingerprint = fingerprint(pack.source);
         IOException failure = null;
         Set<String> visited = new HashSet<>();

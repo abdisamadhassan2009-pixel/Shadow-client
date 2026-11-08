@@ -139,9 +139,16 @@ object MinecraftRuntimePreparer {
             val profileId = MinecraftLauncher.getStorageProfileId(version)
             val internalGameData = LauncherStorage.getStorageGameDataDir(context, profileId, version.versionIsolation, false)
             val externalGameData = LauncherStorage.getStorageGameDataDir(context, profileId, version.versionIsolation, true)
+            val ghostPacks = try {
+                GhostPackInstaller.enabledPackRoots(context)
+            } catch (error: Exception) {
+                trace.warning("Ghost Client packs unavailable", error.message ?: error.javaClass.simpleName)
+                emptyList()
+            }
             val bundledPackCount = BundledResourcePackInstaller.sync(
                 modManager.mods,
                 nativeModResult.loadedModIds,
+                ghostPacks,
                 internalGameData,
                 externalGameData
             )

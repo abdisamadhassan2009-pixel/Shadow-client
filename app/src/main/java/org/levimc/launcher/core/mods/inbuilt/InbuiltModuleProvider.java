@@ -232,6 +232,7 @@ public final class InbuiltModuleProvider {
                                                               String modId) {
         List<UnifiedMod.ConfigEntry> configs = new ArrayList<>();
         if (ModIds.MORE_BUTTONS.equals(modId)) return configs;
+        if (ShadowMods.isPackMod(modId)) return configs; // packs have no HUD settings
         if (ModIds.POJAV_CONTROLS.equals(modId)) {
             configs.add(activationKeybind(context, manager, modId));
             configs.add(config(CFG_EDIT_CONTROLS,

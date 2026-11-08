@@ -1119,6 +1119,10 @@
     <string name="shadow_mod_keystrokes_desc">Shows your taps per second, or W A S D, mouse clicks, Space and Shift when you play with a keyboard</string>
     <string name="shadow_mod_crosshair">Custom Crosshair</string>
     <string name="shadow_mod_crosshair_desc">A clean crosshair in the centre of your screen, in Flarial\'s default style (discord.gg/flarial)</string>
+    <string name="shadow_mod_ui_pack">Ghost UI Pack</string>
+    <string name="shadow_mod_ui_pack_desc">Ghost main menu: ghost logo, dark night background, Ghost-blue buttons. Applies the next time you launch</string>
+    <string name="shadow_mod_pvp_pack">Ghost PvP Pack</string>
+    <string name="shadow_mod_pvp_pack_desc">Low fire, no fog, clearer water, no pumpkin blur and a clean crosshair. Applies the next time you launch</string>
     <string name="shadow_mod_clock">Clock</string>
     <string name="shadow_mod_clock_desc">Shows the current time on your HUD</string>
     <string name="shadow_mod_battery">Battery</string>

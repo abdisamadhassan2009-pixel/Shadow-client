@@ -26,8 +26,10 @@ public final class ShadowMods {
     public static final String BATTERY = "shadow_battery";
     public static final String SESSION_TIMER = "shadow_session_timer";
     public static final String CROSSHAIR = "shadow_crosshair";
+    public static final String UI_PACK = "shadow_ui_pack";
+    public static final String PVP_PACK = "shadow_pvp_pack";
 
-    public static final String[] ALL = {KEYSTROKES, CROSSHAIR, CLOCK, BATTERY, SESSION_TIMER};
+    public static final String[] ALL = {KEYSTROKES, CROSSHAIR, PVP_PACK, UI_PACK, CLOCK, BATTERY, SESSION_TIMER};
 
     private static final int COLOR_ON = 0xFF3DDC97;
     private static final int COLOR_OFF = 0xFF8C93A1;
@@ -40,8 +42,27 @@ public final class ShadowMods {
     /** Mods that start switched on for a fresh install (players can still turn them off). */
     public static boolean defaultEnabled(String modId) {
         return KEYSTROKES.equals(modId)
+                || UI_PACK.equals(modId)
+                || PVP_PACK.equals(modId)
                 || "cps_display".equals(modId)
                 || "fps_display".equals(modId);
+    }
+
+    /** Toggles for the resource packs bundled with Ghost Client (applied on the next launch). */
+    public static boolean isPackMod(String modId) {
+        return UI_PACK.equals(modId) || PVP_PACK.equals(modId);
+    }
+
+    private static final class NoHud implements org.levimc.launcher.core.mods.inbuilt.overlay.ShadowHudElement {
+        private final String id;
+        NoHud(String id) { this.id = id; }
+        @Override public String getModId() { return id; }
+        @Override public void show(int x, int y) {}
+        @Override public void hide() {}
+        @Override public void setVisibility(int visibility) {}
+        @Override public void setHudEditorMode(boolean active) {}
+        @Override public void applyConfigurationChanges() {}
+        @Override public void updatePosition(int x, int y) {}
     }
 
     public static boolean isShadowMod(String modId) {
@@ -55,6 +76,8 @@ public final class ShadowMods {
             case CLOCK: return R.string.shadow_mod_clock;
             case BATTERY: return R.string.shadow_mod_battery;
             case CROSSHAIR: return R.string.shadow_mod_crosshair;
+            case UI_PACK: return R.string.shadow_mod_ui_pack;
+            case PVP_PACK: return R.string.shadow_mod_pvp_pack;
             default: return R.string.shadow_mod_session_timer;
         }
     }
@@ -65,6 +88,8 @@ public final class ShadowMods {
             case CLOCK: return R.string.shadow_mod_clock_desc;
             case BATTERY: return R.string.shadow_mod_battery_desc;
             case CROSSHAIR: return R.string.shadow_mod_crosshair_desc;
+            case UI_PACK: return R.string.shadow_mod_ui_pack_desc;
+            case PVP_PACK: return R.string.shadow_mod_pvp_pack_desc;
             default: return R.string.shadow_mod_session_timer_desc;
         }
     }
@@ -75,6 +100,8 @@ public final class ShadowMods {
             case CLOCK: return R.drawable.ic_shadow_clock;
             case BATTERY: return R.drawable.ic_shadow_battery;
             case CROSSHAIR: return R.drawable.ic_shadow_crosshair;
+            case UI_PACK: return R.drawable.ic_ghost_logo;
+            case PVP_PACK: return R.drawable.ic_shadow_crosshair;
             default: return R.drawable.ic_shadow_timer;
         }
     }
@@ -90,6 +117,9 @@ public final class ShadowMods {
 
     /** Builds the on-screen widget for a Ghost mod. */
     public static org.levimc.launcher.core.mods.inbuilt.overlay.ShadowHudElement createOverlay(android.app.Activity activity, String modId) {
+        if (isPackMod(modId)) {
+            return new NoHud(modId); // packs apply at launch; nothing to draw
+        }
         if (CROSSHAIR.equals(modId)) {
             return new org.levimc.launcher.core.mods.inbuilt.overlay.ShadowCrosshairOverlay(activity, modId);
         }
