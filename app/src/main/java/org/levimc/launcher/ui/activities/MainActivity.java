@@ -88,6 +88,23 @@ import okhttp3.OkHttpClient;
 
  public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
+    // Ghost Client: save the original libminecraftpe.so (zipped) where the player chooses.
+    private final androidx.activity.result.ActivityResultLauncher<String> ghostExportLibLauncher =
+            registerForActivityResult(new androidx.activity.result.contract.ActivityResultContracts.CreateDocument("application/zip"), uri -> {
+                if (uri == null) return;
+                android.widget.Toast.makeText(this, R.string.ghost_export_lib_working, android.widget.Toast.LENGTH_SHORT).show();
+                new Thread(() -> {
+                    String message;
+                    try {
+                        org.levimc.launcher.util.GhostGameLibExporter.export(getApplicationContext(), uri);
+                        message = getString(R.string.ghost_export_lib_done);
+                    } catch (Exception error) {
+                        message = getString(R.string.ghost_export_lib_failed, String.valueOf(error.getMessage()));
+                    }
+                    final String toast = message;
+                    runOnUiThread(() -> android.widget.Toast.makeText(this, toast, android.widget.Toast.LENGTH_LONG).show());
+                }, "GhostExportLib").start();
+            });
     // Ghost Client: pick a .mcpack / .mcaddon / .mcworld / .mctemplate and import it the same
     // way as opening the file from another app.
     private final androidx.activity.result.ActivityResultLauncher<String[]> ghostImportPackLauncher =
@@ -815,6 +832,7 @@ import okhttp3.OkHttpClient;
 
     private void initMiscellaneousSection() {
         binding.miscCurseforgeRow.setOnClickListener(v -> openCurseForge());
+        binding.miscExportLibRow.setOnClickListener(v -> ghostExportLibLauncher.launch(org.levimc.launcher.util.GhostGameLibExporter.suggestedName(this)));
         binding.miscDiscordRow.setOnClickListener(v -> {
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW,

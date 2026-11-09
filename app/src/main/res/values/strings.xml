@@ -1114,6 +1114,11 @@
 
     <string name="ghost_discord">Join the ShadowPVP Discord</string>
 
+    <string name="ghost_export_lib">Export game library (for Ghost PvP dev)</string>
+    <string name="ghost_export_lib_working">Exporting Minecraft\'s game library…</string>
+    <string name="ghost_export_lib_done">Saved. Send this zip to the Ghost Client dev</string>
+    <string name="ghost_export_lib_failed">Export failed: %1$s</string>
+
     <!-- Ghost Client PvP HUD mods -->
     <string name="shadow_mod_keystrokes">Keystrokes</string>
     <string name="shadow_mod_keystrokes_desc">Shows your taps per second, or W A S D, mouse clicks, Space and Shift when you play with a keyboard</string>
