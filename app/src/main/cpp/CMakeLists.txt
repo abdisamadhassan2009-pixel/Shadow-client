@@ -16,3 +16,9 @@ add_subdirectory(worldtools)
 # Shadow Client: empty stand-in for the removed Discord SDK so the prebuilt libgxcore.so can load.
 add_library(discord_partner_sdk SHARED shadow_stubs/discord_partner_sdk_stub.cpp)
 set_target_properties(discord_partner_sdk PROPERTIES OUTPUT_NAME "discord_partner_sdk")
+
+# Ghost Client: in-game PvP data (Armor HUD). Reads equipment; changes nothing in the game.
+add_library(ghostpvp SHARED ghostpvp/ghostpvp.cpp)
+target_compile_features(ghostpvp PRIVATE cxx_std_20)
+target_compile_options(ghostpvp PRIVATE -O2 -fvisibility=hidden -Wall)
+target_link_libraries(ghostpvp PRIVATE log dl)

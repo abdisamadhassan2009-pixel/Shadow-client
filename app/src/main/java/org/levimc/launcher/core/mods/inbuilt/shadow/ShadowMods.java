@@ -30,8 +30,9 @@ public final class ShadowMods {
     public static final String STOPWATCH = "shadow_stopwatch";
     public static final String UI_PACK = "shadow_ui_pack";
     public static final String PVP_PACK = "shadow_pvp_pack";
+    public static final String ARMOR_HUD = "shadow_armor_hud";
 
-    public static final String[] ALL = {KEYSTROKES, CROSSHAIR, PVP_PACK, UI_PACK, WATERMARK, STOPWATCH, CLOCK, BATTERY, SESSION_TIMER};
+    public static final String[] ALL = {ARMOR_HUD, KEYSTROKES, CROSSHAIR, PVP_PACK, UI_PACK, WATERMARK, STOPWATCH, CLOCK, BATTERY, SESSION_TIMER};
 
     private static final int COLOR_ON = 0xFF3DDC97;
     private static final int COLOR_OFF = 0xFF8C93A1;
@@ -44,6 +45,7 @@ public final class ShadowMods {
     /** Mods that start switched on for a fresh install (players can still turn them off). */
     public static boolean defaultEnabled(String modId) {
         return KEYSTROKES.equals(modId)
+                || ARMOR_HUD.equals(modId)
                 || UI_PACK.equals(modId)
                 || PVP_PACK.equals(modId)
                 || "cps_display".equals(modId)
@@ -74,6 +76,7 @@ public final class ShadowMods {
 
     public static int nameRes(String modId) {
         switch (modId) {
+            case ARMOR_HUD: return R.string.shadow_mod_armor_hud;
             case KEYSTROKES: return R.string.shadow_mod_keystrokes;
             case CLOCK: return R.string.shadow_mod_clock;
             case BATTERY: return R.string.shadow_mod_battery;
@@ -88,6 +91,7 @@ public final class ShadowMods {
 
     public static int descRes(String modId) {
         switch (modId) {
+            case ARMOR_HUD: return R.string.shadow_mod_armor_hud_desc;
             case KEYSTROKES: return R.string.shadow_mod_keystrokes_desc;
             case CLOCK: return R.string.shadow_mod_clock_desc;
             case BATTERY: return R.string.shadow_mod_battery_desc;
@@ -102,6 +106,7 @@ public final class ShadowMods {
 
     public static int iconRes(String modId) {
         switch (modId) {
+            case ARMOR_HUD: return R.drawable.ic_ghost_armor_chest;
             case KEYSTROKES: return R.drawable.ic_shadow_keystrokes;
             case CLOCK: return R.drawable.ic_shadow_clock;
             case BATTERY: return R.drawable.ic_shadow_battery;
@@ -118,6 +123,7 @@ public final class ShadowMods {
     public static int updateIntervalMs(String modId) {
         switch (modId) {
             case KEYSTROKES: return 50;
+            case ARMOR_HUD: return 150;
             case STOPWATCH: return 100;
             case WATERMARK: return 60_000;
             case BATTERY: return 30_000;
@@ -140,6 +146,7 @@ public final class ShadowMods {
 
     public static ShadowTextOverlay.TextProvider provider(Context context, String modId) {
         switch (modId) {
+            case ARMOR_HUD: return () -> ArmorHud.text(context);
             case KEYSTROKES: return ShadowMods::keystrokes;
             case WATERMARK: return ShadowMods::watermark;
             case STOPWATCH: return ShadowMods::stopwatch;

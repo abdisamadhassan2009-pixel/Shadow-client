@@ -125,6 +125,18 @@ object MinecraftRuntimePreparer {
             org.levimc.launcher.core.mods.inbuilt.nativemod.GyroMod.nativePreResolve()
         } catch (_: Throwable) {}
 
+        // Ghost Client: in-game PvP data (Armor HUD). Read-only; skipped if this game version doesn't match.
+        try {
+            listener.onLog("Loading Ghost PvP")
+            if (org.levimc.launcher.core.mods.inbuilt.shadow.GhostPvpNative.init()) {
+                trace.mark("Ghost PvP ready")
+            } else {
+                trace.warning("Ghost PvP unavailable", org.levimc.launcher.core.mods.inbuilt.shadow.GhostPvpNative.status())
+            }
+        } catch (error: Throwable) {
+            trace.warning("Ghost PvP unavailable", error.message ?: error.javaClass.simpleName)
+        }
+
         try {
             org.levimc.launcher.core.mods.inbuilt.nativemod.HotbarSlotMod.initialize()
             org.levimc.launcher.core.mods.inbuilt.overlay.HotbarSlotOverlay.preloadArtwork(context)

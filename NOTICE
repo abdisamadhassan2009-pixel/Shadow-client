@@ -9,3 +9,7 @@ example libgxcore.so) remain the work of their authors.
 Thanks to Flarial (https://discord.gg/flarial, https://github.com/flarialmc/dll-oss)
 for inspiration: Ghost Client's Custom Crosshair follows Flarial's default
 crosshair style. It is an independent implementation and contains no Flarial code.
+
+Ghost PvP (app/src/main/cpp/ghostpvp) is Ghost Client's own code. Thanks to AppleSkin for
+LeviLauncher by TheRealBatu & MrPokeG (https://github.com/RadiantByte/AppleSkin) whose
+research into Minecraft's UI render context made the in-game HUD data possible.

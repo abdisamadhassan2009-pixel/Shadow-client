@@ -1120,6 +1120,8 @@
     <string name="ghost_export_lib_failed">Export failed: %1$s</string>
 
     <!-- Ghost Client PvP HUD mods -->
+    <string name="shadow_mod_armor_hud">Armor HUD</string>
+    <string name="shadow_mod_armor_hud_desc">Shows your armor and held items with the durability left, coloured green to red</string>
     <string name="shadow_mod_keystrokes">Keystrokes</string>
     <string name="shadow_mod_keystrokes_desc">Shows your taps per second, or W A S D, mouse clicks, Space and Shift when you play with a keyboard</string>
     <string name="shadow_mod_crosshair">Custom Crosshair</string>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ghost Client original pixel icon (16x16), tinted at runtime. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp" android:height="16dp" android:viewportWidth="16" android:viewportHeight="16">
+    <path android:fillColor="#FFFFFFFF" android:pathData="M2,2h4v1h4v-1h4v5h-2v7h-8v-7h-2z"/>
+    <path android:fillColor="#59000000" android:pathData="M7,4h2v9h-2z"/>
+</vector>
